@@ -101,9 +101,6 @@ jaeger:
 otel:
   endpoint: 127.0.0.1:4317
 
-uptrace:
-  dsn: ''
-
 kafka:
   address: 127.0.0.1:9092
   network: tcp
