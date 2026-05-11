@@ -194,11 +194,13 @@ networks:
 #  tempo:
 #    image: grafana/tempo:2.10.4  # 使用 tempo v2 保证兼容性
 #    container_name: fzuhelper-tempo
-#    command: "-target=all -config.file=/etc/tempo.yaml"
+#    command: "--target=all --config.file=/etc/tempo.yaml --confg.expand-env=true"
 #    restart: always
 #    volumes:
 #      - ../config/tempo/tempo.yaml:/etc/tempo.yaml
 #      - ./data/tempo:/var/tempo
+#    env_file:
+#      - "./env/tempo.env"
 #    ports:
 #      - "3200:3200" # tempo http api for Grafana
 #    networks:
