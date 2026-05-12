@@ -161,6 +161,7 @@ networks:
 #        - 3000:3000
 #      volumes:
 #        - ../config/grafana:/etc/grafana
+#        - ./data/grafana:/var/lib/grafana
 #      networks:
 #        - fzuhelper
 #
@@ -183,6 +184,7 @@ networks:
 #      - 4318:4318    # OTLP http from app
 #    volumes:
 #      - ../config/alloy/config.alloy:/etc/alloy/config.alloy
+#      - ../output:/var/log  # 左边是宿主机上日志的输出位置
 #    command: >
 #      run
 #      --server.http.listen-addr=0.0.0.0:12345
@@ -191,10 +193,25 @@ networks:
 #    networks:
 #      - fzuhelper
 #
+#  loki:
+#    container_name: fzuhelper-loki
+#    image: grafana/loki:latest
+#    command: "--config.file=/etc/loki/local-config.yaml --config.expand-env=true"
+#    restart: always
+#    ports:
+#      - 3100:3100
+#    env_file:
+#      - "./env/loki.env"
+#    volumes:
+#      - "../config/loki/loki-config.yaml:/etc/loki/local-config.yaml"
+#      - "./data/loki:/loki"
+#    networks:
+#      - fzuhelper
+#
 #  tempo:
 #    image: grafana/tempo:2.10.4  # 使用 tempo v2 保证兼容性
 #    container_name: fzuhelper-tempo
-#    command: "--target=all --config.file=/etc/tempo.yaml --confg.expand-env=true"
+#    command: "--target=all --config.file=/etc/tempo.yaml --config.expand-env=true"
 #    restart: always
 #    volumes:
 #      - ../config/tempo/tempo.yaml:/etc/tempo.yaml
